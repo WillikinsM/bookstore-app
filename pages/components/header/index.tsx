@@ -4,7 +4,6 @@ import {
   Stack,
   Heading,
   Flex,
-  Text,
   Button,
   useDisclosure,
   Drawer,
@@ -13,9 +12,10 @@ import {
   DrawerCloseButton,
   DrawerHeader,
   DrawerBody,
-  Input,
-  DrawerFooter,
   MenuButton,
+  Menu,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { BiCategory, BiBookAlt } from "react-icons/bi";
@@ -55,25 +55,48 @@ const Header = () => {
             </Heading>
           </DrawerHeader>
           <DrawerBody>
-            <Stack spacing={4}>
-              <Button
-                leftIcon={<BiCategory />}
-                bg="white"
-                color="black"
-                variant="solid"
-                size="lg"
-              >
-                Categories
-              </Button>
-              <Button
-                leftIcon={<BiBookAlt />}
-                bg="white"
-                color="black"
-                variant="solid"
-                size="lg"
-              >
-                Books
-              </Button>
+            <Stack spacing={2}>
+              <Menu isLazy>
+                <MenuButton
+                  as={Button}
+                  leftIcon={<BiCategory />}
+                  bg="white"
+                  color="black"
+                  variant="solid"
+                  size="lg"
+                  display="inline-box"
+                >
+                  Categories
+                </MenuButton>
+                <MenuList>
+                  <MenuItem>Download</MenuItem>
+                  <MenuItem>Create a Copy</MenuItem>
+                  <MenuItem>Mark as Draft</MenuItem>
+                  <MenuItem>Delete</MenuItem>
+                  <MenuItem>Attend a Workshop</MenuItem>
+                </MenuList>
+              </Menu>
+
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  leftIcon={<BiBookAlt />}
+                  bg="white"
+                  color="black"
+                  variant="solid"
+                  size="lg"
+                  display="inline-box"
+                >
+                  Books
+                </MenuButton>
+                <MenuList>
+                  <MenuItem>Download</MenuItem>
+                  <MenuItem>Create a Copy</MenuItem>
+                  <MenuItem>Mark as Draft</MenuItem>
+                  <MenuItem>Delete</MenuItem>
+                  <MenuItem>Attend a Workshop</MenuItem>
+                </MenuList>
+              </Menu>
             </Stack>
           </DrawerBody>
         </DrawerContent>
