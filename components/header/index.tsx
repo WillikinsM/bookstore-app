@@ -19,6 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { BiCategory, BiBookAlt } from "react-icons/bi";
+import dataStore from "../../stores/DataStore";
 import styles from "../styles/header.module.css";
 
 const Header = () => {
@@ -69,11 +70,8 @@ const Header = () => {
                   Categories
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>Download</MenuItem>
-                  <MenuItem>Create a Copy</MenuItem>
-                  <MenuItem>Mark as Draft</MenuItem>
-                  <MenuItem>Delete</MenuItem>
-                  <MenuItem>Attend a Workshop</MenuItem>
+                  <MenuItem>All Categories</MenuItem>
+                  <MenuItem>Edit Categories</MenuItem>
                 </MenuList>
               </Menu>
 
@@ -90,11 +88,10 @@ const Header = () => {
                   Books
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>Download</MenuItem>
-                  <MenuItem>Create a Copy</MenuItem>
-                  <MenuItem>Mark as Draft</MenuItem>
-                  <MenuItem>Delete</MenuItem>
-                  <MenuItem>Attend a Workshop</MenuItem>
+                  <MenuItem onClick={() => dataStore.fetchBookList()}>
+                    All books
+                  </MenuItem>
+                  <MenuItem>Edit Books</MenuItem>
                 </MenuList>
               </Menu>
             </Stack>

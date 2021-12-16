@@ -1,13 +1,10 @@
 import { Box, chakra, Flex, Image } from "@chakra-ui/react";
 
 interface Props {
-  authorName: string;
   title: string;
-  description: string;
-  text: string;
 }
 
-const Book = ({ authorName, title, description, text }: Props) => {
+const Book = ({ title }: Props) => {
   return (
     <Box maxW="xs" mx="auto" bg="black" shadow="lg" rounded="lg" marginTop={10}>
       <Box px={4} py={2}>
@@ -20,7 +17,7 @@ const Book = ({ authorName, title, description, text }: Props) => {
           {title}
         </chakra.h1>
         <chakra.p mt={1} fontSize="sm" color="white" textOverflow="ellipsis">
-          {description}
+          description
         </chakra.p>
       </Box>
 
@@ -42,7 +39,7 @@ const Book = ({ authorName, title, description, text }: Props) => {
         roundedBottom="lg"
       >
         <chakra.h1 color="white" fontWeight="bold" fontSize="lg">
-          {authorName}
+          authorName
         </chakra.h1>
         <chakra.button
           px={2}
