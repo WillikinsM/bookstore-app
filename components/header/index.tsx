@@ -1,26 +1,7 @@
 import React from "react";
-import {
-  Box,
-  Stack,
-  Heading,
-  Flex,
-  Button,
-  useDisclosure,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  DrawerHeader,
-  DrawerBody,
-  MenuButton,
-  Menu,
-  MenuList,
-  MenuItem,
-} from "@chakra-ui/react";
+import { Box, Heading, Flex, useDisclosure, Drawer } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { BiCategory, BiBookAlt } from "react-icons/bi";
-import dataStore from "../../stores/DataStore";
-import styles from "../styles/header.module.css";
+import SideBar from "./sidebar";
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -47,56 +28,7 @@ const Header = () => {
         finalFocusRef={btnRef}
         size="sm"
       >
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton color="white" />
-          <DrawerHeader bg="black" color="white" align="center" padding={6}>
-            <Heading as="h2" size="md">
-              Options
-            </Heading>
-          </DrawerHeader>
-          <DrawerBody>
-            <Stack spacing={2}>
-              <Menu isLazy>
-                <MenuButton
-                  as={Button}
-                  leftIcon={<BiCategory />}
-                  bg="white"
-                  color="black"
-                  variant="solid"
-                  size="lg"
-                  display="inline-box"
-                >
-                  Categories
-                </MenuButton>
-                <MenuList>
-                  <MenuItem>All Categories</MenuItem>
-                  <MenuItem>Edit Categories</MenuItem>
-                </MenuList>
-              </Menu>
-
-              <Menu>
-                <MenuButton
-                  as={Button}
-                  leftIcon={<BiBookAlt />}
-                  bg="white"
-                  color="black"
-                  variant="solid"
-                  size="lg"
-                  display="inline-box"
-                >
-                  Books
-                </MenuButton>
-                <MenuList>
-                  <MenuItem onClick={() => dataStore.fetchBookList()}>
-                    All books
-                  </MenuItem>
-                  <MenuItem>Edit Books</MenuItem>
-                </MenuList>
-              </Menu>
-            </Stack>
-          </DrawerBody>
-        </DrawerContent>
+        <SideBar />
       </Drawer>
 
       <Flex mr={2}>
