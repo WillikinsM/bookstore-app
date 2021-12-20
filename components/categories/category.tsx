@@ -25,7 +25,7 @@ const Category = ({ name, description, image }: Props) => {
         bgSize="contain"
         bgPos="center"
         style={{
-          backgroundImage: `url(${image})`,
+          backgroundImage: `url(https://1.bp.blogspot.com/-fOGg6tS7LmU/XTIIyJcvdHI/AAAAAAAAfsM/syj8BZN6q4sYe_T6HJ5DpmUiYXUfx2i4wCLcBGAs/s1600/post%2Blegende%2Bnew%2Bcopy.jpg)`,
         }}
       ></Box>
 

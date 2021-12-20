@@ -4,32 +4,30 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  ModalFooter,
-  Button,
 } from "@chakra-ui/react";
-import Form from "./formikTest";
+import { observer } from "mobx-react-lite";
+import dataStore from "../../../../stores/DataStore";
+import { FormBook } from "./bookForm";
+import FormCategory from "./categoryForm";
 
-const FormWrapper = () => {
+const FormWrapper = observer(() => {
+  let formChange = dataStore.modalHandler;
   return (
     <>
       <ModalOverlay />
-
       <ModalContent>
-        <ModalHeader>Modal Title</ModalHeader>
+        <ModalHeader>Add new {formChange}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Form />
+          {formChange === "book" ? (
+            <FormBook />
+          ) : formChange === "category" ? (
+            <FormCategory />
+          ) : null}
         </ModalBody>
-
-        <ModalFooter>
-          <Button colorScheme="blue" mr={3}>
-            Submit
-          </Button>
-          <Button colorScheme="red">Cancel</Button>
-        </ModalFooter>
       </ModalContent>
     </>
   );
-};
+});
 
 export default FormWrapper;

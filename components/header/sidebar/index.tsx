@@ -17,9 +17,13 @@ import {
 } from "@chakra-ui/react";
 import dataStore from "../../../stores/DataStore";
 import FormWrapper from "./form";
+import { observer } from "mobx-react-lite";
 
-const SideBar = () => {
+const SideBar = observer(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const handleToggle = (value: string) => (
+    onOpen(), dataStore.setModalHandler(value)
+  );
   return (
     <>
       <DrawerOverlay />
@@ -32,7 +36,7 @@ const SideBar = () => {
         </DrawerHeader>
         <DrawerBody>
           <Stack spacing={2}>
-            <Menu isLazy>
+            <Menu>
               <MenuButton
                 as={Button}
                 leftIcon={<BiCategory />}
@@ -53,6 +57,7 @@ const SideBar = () => {
                   variant="solid"
                   _hover={{ bg: "gray.500" }}
                   _focus={{ bg: "gray.500" }}
+                  onClick={() => dataStore.fetchCategoryList()}
                 >
                   All Categories
                 </MenuItem>
@@ -63,8 +68,12 @@ const SideBar = () => {
                   variant="solid"
                   _hover={{ bg: "gray.500" }}
                   _focus={{ bg: "gray.500" }}
+                  onClick={() => handleToggle("category")}
                 >
                   Add new Category
+                  <Modal isOpen={isOpen} onClose={onClose}>
+                    <FormWrapper />
+                  </Modal>
                 </MenuItem>
               </MenuList>
             </Menu>
@@ -101,7 +110,7 @@ const SideBar = () => {
                   variant="solid"
                   _hover={{ bg: "gray.500" }}
                   _focus={{ bg: "gray.500" }}
-                  onClick={onOpen}
+                  onClick={() => handleToggle("book")}
                 >
                   Add new Book
                   <Modal isOpen={isOpen} onClose={onClose}>
@@ -115,5 +124,5 @@ const SideBar = () => {
       </DrawerContent>
     </>
   );
-};
+});
 export default SideBar;
