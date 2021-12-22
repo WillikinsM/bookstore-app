@@ -15,7 +15,7 @@ const Books = observer(() => {
       wrap="wrap"
     >
       {dataStore.bookList.map((book: any, index) => (
-        <Book key={index} title={book.title} />
+        <Book key={index} title={book.title} id={book.id} />
       ))}
     </Flex>
   );

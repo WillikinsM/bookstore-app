@@ -1,12 +1,19 @@
 import { Box, chakra, Flex, useColorModeValue } from "@chakra-ui/react";
+import { observer } from "mobx-react-lite";
+import dataStore from "../../stores/DataStore";
 
 interface Props {
   name: string;
   description: string;
   image: string;
+  id: number;
 }
 
-const Category = ({ name, description, image }: Props) => {
+const Category = observer(({ name, description, image, id }: Props) => {
+  const handleClick = () => {
+    dataStore.findBookByCategory(id);
+  };
+
   return (
     <Flex
       direction="column"
@@ -74,6 +81,7 @@ const Category = ({ name, description, image }: Props) => {
               bg: useColorModeValue("gray.700", "gray.600"),
               outline: "none",
             }}
+            onClick={handleClick}
           >
             see books
           </chakra.button>
@@ -81,6 +89,6 @@ const Category = ({ name, description, image }: Props) => {
       </Box>
     </Flex>
   );
-};
+});
 
 export default Category;

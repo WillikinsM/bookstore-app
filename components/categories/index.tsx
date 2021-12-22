@@ -19,6 +19,7 @@ const Categories = observer(() => {
           name={category.name}
           description={category.description}
           image={category.image}
+          id={category.id}
         />
       ))}
     </Flex>

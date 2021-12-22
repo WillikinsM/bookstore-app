@@ -1,10 +1,26 @@
-import { Box, chakra, Flex, Image } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  chakra,
+  Flex,
+  Image,
+  Modal,
+  useDisclosure,
+} from "@chakra-ui/react";
+import BookOptions from "./options";
 
 interface Props {
   title: string;
+  id: number;
 }
 
-const Book = ({ title }: Props) => {
+const Book = ({ title, id }: Props) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleClick = () => {
+    console.log(title);
+  };
+
   return (
     <Box maxW="xs" mx="auto" bg="black" shadow="lg" rounded="lg" marginTop={10}>
       <Box px={4} py={2}>
@@ -56,8 +72,13 @@ const Book = ({ title }: Props) => {
           _focus={{
             bg: "gray.400",
           }}
+          onClick={onOpen}
         >
-          Add to cart
+          See more
+          <Modal onClose={onClose} size={"full"} isOpen={isOpen}>
+            <Button onClick={onClose}>Close</Button>
+            <BookOptions id={id} title={title} />
+          </Modal>
         </chakra.button>
       </Flex>
     </Box>

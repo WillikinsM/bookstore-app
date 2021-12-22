@@ -4,13 +4,11 @@ import Books from "../components/books/index.";
 import Categories from "../components/categories";
 import Header from "../components/header";
 import dataStore from "../stores/DataStore";
-import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 
 const Home: NextPage = observer(() => {
   let shouldRender: boolean = dataStore.bookIsActive;
 
-  useEffect(() => {}, [shouldRender]);
   return (
     <>
       <Header />

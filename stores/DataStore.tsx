@@ -79,6 +79,20 @@ class DataStore {
   setModalHandler(type: string) {
     this.modalHandler = type;
   }
+
+  findBookByCategory = async (id: number) => {
+    try {
+      const response = await axios.get(
+        `https://will-bookstore-api.herokuapp.com/books?category=${id}`
+      );
+      runInAction(() => {
+        this.bookList = response.data;
+        this.bookIsActive = true;
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 }
 
 const dataStore = new DataStore();
