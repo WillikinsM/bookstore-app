@@ -4,6 +4,8 @@ import axios from "axios";
 class DataStore {
   bookList: [] = [];
   categoryList: [] = [];
+  book: [] = [];
+
   bookIsActive: boolean = false;
   categoryIsActive: boolean = false;
   modalHandler: string = "";
@@ -88,6 +90,19 @@ class DataStore {
       runInAction(() => {
         this.bookList = response.data;
         this.bookIsActive = true;
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  findBookById = async (id: number) => {
+    try {
+      const response = await axios.get(
+        `https://will-bookstore-api.herokuapp.com/books/${id}`
+      );
+      runInAction(() => {
+        this.book = response.data;
       });
     } catch (err) {
       console.log(err);

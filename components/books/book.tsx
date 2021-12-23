@@ -7,6 +7,7 @@ import {
   Modal,
   useDisclosure,
 } from "@chakra-ui/react";
+import dataStore from "../../stores/DataStore";
 import BookOptions from "./options";
 
 interface Props {
@@ -18,9 +19,10 @@ const Book = ({ title, id }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleClick = () => {
-    console.log(title);
+    dataStore.findBookById(id);
+    onOpen();
   };
-
+  const book: any = dataStore.book;
   return (
     <Box maxW="xs" mx="auto" bg="black" shadow="lg" rounded="lg" marginTop={10}>
       <Box px={4} py={2}>
@@ -72,12 +74,12 @@ const Book = ({ title, id }: Props) => {
           _focus={{
             bg: "gray.400",
           }}
-          onClick={onOpen}
+          onClick={handleClick}
         >
           See more
           <Modal onClose={onClose} size={"full"} isOpen={isOpen}>
             <Button onClick={onClose}>Close</Button>
-            <BookOptions id={id} title={title} />
+            <BookOptions />
           </Modal>
         </chakra.button>
       </Flex>

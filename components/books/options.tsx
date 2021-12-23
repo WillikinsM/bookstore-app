@@ -7,28 +7,27 @@ import {
   ModalFooter,
   Text,
 } from "@chakra-ui/react";
+import { observer } from "mobx-react-lite";
+import dataStore from "../../stores/DataStore";
 
-interface Props {
-  title: string;
-  id: number;
-}
+const BookOptions = observer(() => {
+  const book: any = dataStore.book;
 
-const BookOptions = ({ title, id }: Props) => {
   return (
     <>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Options for {title}</ModalHeader>
+        <ModalHeader>Options for {book.title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Text>{id}</Text>
+          <Text>{book.text}</Text>
         </ModalBody>
         <ModalFooter>
-          <Text>{id}</Text>
+          <Text>{book.authorName}</Text>
         </ModalFooter>
       </ModalContent>
     </>
   );
-};
+});
 
 export default BookOptions;
