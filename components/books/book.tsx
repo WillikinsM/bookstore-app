@@ -24,7 +24,15 @@ const Book = ({ title, id }: Props) => {
   };
   const book: any = dataStore.book;
   return (
-    <Box maxW="xs" mx="auto" bg="black" shadow="lg" rounded="lg" marginTop={10}>
+    <Box
+      maxW="xs"
+      minW="xs"
+      mx="auto"
+      bg="black"
+      shadow="lg"
+      rounded="lg"
+      marginTop={10}
+    >
       <Box px={4} py={2}>
         <chakra.h1
           color="white"

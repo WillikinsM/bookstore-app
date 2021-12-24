@@ -17,9 +17,6 @@ import dataStore from "../../../../stores/DataStore";
 const sleep = (ms: any) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const onSubmit = (values: any) => {
-  /* sleep(1100).then(() => {
-    window.alert(JSON.stringify(values, null, 2));
-  }); */
   dataStore.addNewBook(
     values.authorName,
     values.title,

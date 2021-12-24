@@ -5,7 +5,6 @@ import SideBar from "./sidebar";
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  /* const handleToggle = () => (isOpen ? onClose() : onOpen()); */
   const btnRef = React.useRef(null);
 
   return (

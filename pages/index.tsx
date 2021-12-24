@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 
-import Books from "../components/books/index.";
+import Books from "../components/books";
 import Categories from "../components/categories";
 import Header from "../components/header";
 import dataStore from "../stores/DataStore";
@@ -12,7 +12,8 @@ const Home: NextPage = observer(() => {
   return (
     <>
       <Header />
-      {shouldRender ? <Books /> : <Categories />}
+      {(shouldRender === true && <Books />) ||
+        (shouldRender === false && <Categories />)}
     </>
   );
 });
