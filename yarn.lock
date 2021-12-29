@@ -665,6 +665,11 @@
   dependencies:
     "@chakra-ui/utils" "1.9.1"
 
+"@choc-ui/paginator@^3.2.2":
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/@choc-ui/paginator/-/paginator-3.2.2.tgz#c96562ef63e4d2b17e6941fa006dffb4976fa882"
+  integrity sha512-BSm+0XMNRMMOQW39BpdzfHpWegG2mSv3tRCfKRoU7TNrIDmPjv/LKShmBnXFd93dosBqicuKOUS5gjWt+Tmagg==
+
 "@ctrl/tinycolor@^3.4.0":
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/@ctrl/tinycolor/-/tinycolor-3.4.0.tgz#c3c5ae543c897caa9c2a68630bed355be5f9990f"

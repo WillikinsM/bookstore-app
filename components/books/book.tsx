@@ -37,14 +37,11 @@ const Book = ({ title, id }: Props) => {
         <chakra.h1
           color="white"
           fontWeight="bold"
-          fontSize="3xl"
+          fontSize="xl"
           textTransform="uppercase"
         >
           {title}
         </chakra.h1>
-        {/* <chakra.p mt={1} fontSize="sm" color="white" textOverflow="ellipsis">
-          description
-        </chakra.p> */}
       </Box>
 
       <Image
@@ -64,9 +61,6 @@ const Book = ({ title, id }: Props) => {
         bg="gray.900"
         roundedBottom="lg"
       >
-        {/* <chakra.h1 color="white" fontWeight="bold" fontSize="lg">
-          authorName
-        </chakra.h1> */}
         <chakra.button
           px={2}
           py={1}

@@ -108,6 +108,16 @@ class DataStore {
       console.log(err);
     }
   };
+
+  setView(type: string) {
+    if (type === "books") {
+      this.bookIsActive = true;
+      this.categoryIsActive = false;
+    } else {
+      this.bookIsActive = false;
+      this.categoryIsActive = true;
+    }
+  }
 }
 
 const dataStore = new DataStore();
