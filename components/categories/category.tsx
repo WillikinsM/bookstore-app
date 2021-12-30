@@ -12,6 +12,7 @@ interface Props {
 const Category = observer(({ name, description, image, id }: Props) => {
   const handleClick = () => {
     dataStore.findBookByCategory(id);
+    dataStore.setView("books");
   };
 
   return (
@@ -61,10 +62,12 @@ const Category = observer(({ name, description, image, id }: Props) => {
           py={2}
           px={3}
           bg="black"
+          flexDirection="row"
+          wrap="wrap"
         >
-          <chakra.span fontWeight="bold" color="white" textOverflow="ellipsis">
+          <chakra.h3 fontWeight="bold" color="white">
             {description}
-          </chakra.span>
+          </chakra.h3>
           <chakra.button
             bg="gray.800"
             fontSize="xs"
@@ -74,6 +77,7 @@ const Category = observer(({ name, description, image, id }: Props) => {
             py={1}
             rounded="lg"
             textTransform="uppercase"
+            ml="auto"
             _hover={{
               bg: useColorModeValue("gray.700", "gray.600"),
             }}
@@ -83,7 +87,7 @@ const Category = observer(({ name, description, image, id }: Props) => {
             }}
             onClick={handleClick}
           >
-            see books
+            See Books
           </chakra.button>
         </Flex>
       </Box>

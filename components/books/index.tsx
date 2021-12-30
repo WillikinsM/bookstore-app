@@ -17,9 +17,9 @@ const Books = observer(() => {
   useEffect(() => {
     dataStore.fetchBookList().then(() => {
       setData(dataStore.bookList);
-    });
-    sleep(2000).then(() => {
-      setLoading(false);
+      sleep(1000).then(() => {
+        setLoading(false);
+      });
     });
   }, []);
 

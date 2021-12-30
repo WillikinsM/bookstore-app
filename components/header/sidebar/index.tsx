@@ -57,7 +57,7 @@ const SideBar = observer(() => {
                   variant="solid"
                   _hover={{ bg: "gray.500" }}
                   _focus={{ bg: "gray.500" }}
-                  onClick={() => dataStore.fetchCategoryList()}
+                  onClick={() => dataStore.setView("categories")}
                 >
                   All Categories
                 </MenuItem>

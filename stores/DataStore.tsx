@@ -5,7 +5,6 @@ class DataStore {
   bookList: [] = [];
   categoryList: [] = [];
   book: [] = [];
-
   bookIsActive: boolean = false;
   categoryIsActive: boolean = false;
   modalHandler: string = "";
@@ -35,7 +34,6 @@ class DataStore {
       );
       runInAction(() => {
         this.categoryList = response.data;
-        this.bookIsActive = false;
       });
     } catch (err) {
       console.log(err);
@@ -89,7 +87,6 @@ class DataStore {
       );
       runInAction(() => {
         this.bookList = response.data;
-        this.bookIsActive = true;
       });
     } catch (err) {
       console.log(err);
@@ -113,9 +110,9 @@ class DataStore {
     if (type === "books") {
       this.bookIsActive = true;
       this.categoryIsActive = false;
-    } else {
-      this.bookIsActive = false;
+    } else if (type === "categories") {
       this.categoryIsActive = true;
+      this.bookIsActive = false;
     }
   }
 }

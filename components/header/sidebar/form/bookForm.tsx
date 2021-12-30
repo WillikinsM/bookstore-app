@@ -25,6 +25,7 @@ const onSubmit = (values: any) => {
   );
   sleep(1100).then(() => {
     window.alert(JSON.stringify("Book Added ", null, 2));
+    dataStore.setView("books");
   });
 };
 
@@ -38,7 +39,7 @@ const validationSchema = Yup.object({
   authorName: Yup.string().required().min(3).max(30),
   text: Yup.string().required().min(4).max(3000),
   title: Yup.string().required().min(3).max(50),
-  category: Yup.number().required(),
+  category: Yup.number().required().min(1),
 });
 
 const FormBook = observer(() => {
