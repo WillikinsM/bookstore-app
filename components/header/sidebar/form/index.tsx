@@ -6,24 +6,38 @@ import {
   ModalBody,
 } from "@chakra-ui/react";
 import { observer } from "mobx-react-lite";
+import { useEffect, useState } from "react";
 import dataStore from "../../../../stores/DataStore";
 import { FormBook } from "./bookForm";
 import FormCategory from "./categoryForm";
 
 const FormWrapper = observer(() => {
+  const [isOpen, setIsOpen] = useState("");
   let formChange = dataStore.modalHandler;
-  return (
+
+  useEffect(() => {
+    setIsOpen(formChange);
+  }, [formChange]);
+
+  return isOpen === "book" ? (
     <>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add new {formChange}</ModalHeader>
+        <ModalHeader>Add new {isOpen}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          {formChange === "book" ? (
-            <FormBook />
-          ) : formChange === "category" ? (
-            <FormCategory />
-          ) : null}
+          <FormBook />
+        </ModalBody>
+      </ModalContent>
+    </>
+  ) : (
+    <>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Add new {isOpen}</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          <FormCategory />
         </ModalBody>
       </ModalContent>
     </>

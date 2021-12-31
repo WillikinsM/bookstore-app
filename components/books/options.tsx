@@ -38,7 +38,8 @@ const BookOptions = observer(() => {
           <Flex
             bg={useColorModeValue("#F9FAFB", "gray.600")}
             p={20}
-            w="full"
+            w="auto"
+            h="auto"
             justifyContent="center"
             alignItems="center"
           >
@@ -120,8 +121,8 @@ const BookOptions = observer(() => {
                   </Popover>
                 </Box>
                 <Image
-                  h="full"
-                  w="full"
+                  h="2xl"
+                  w="2xl"
                   fit="cover"
                   mt={2}
                   src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/ad352c45728713.583b609560cfb.jpg"

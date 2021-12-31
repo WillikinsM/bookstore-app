@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import dataStore from "../../stores/DataStore";
 import Category from "./category";
-import { Button, Flex, Spinner } from "@chakra-ui/react";
+import { Button, Flex, Spacer, Spinner } from "@chakra-ui/react";
 import { forwardRef, useEffect, useState } from "react";
 import Pagination from "@choc-ui/paginator";
 

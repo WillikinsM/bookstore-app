@@ -18,7 +18,7 @@ const onSubmit = (values: any) => {
   dataStore.addNewCategory(values.name, values.description);
   sleep(1100).then(() => {
     window.alert(JSON.stringify("Category Added ", null, 2));
-    dataStore.setView("categories");
+    dataStore.setView("categories", -1);
   });
 };
 

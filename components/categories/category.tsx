@@ -11,8 +11,7 @@ interface Props {
 
 const Category = observer(({ name, description, image, id }: Props) => {
   const handleClick = () => {
-    dataStore.findBookByCategory(id);
-    dataStore.setView("books");
+    dataStore.setView("books", id);
   };
 
   return (

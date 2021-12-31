@@ -25,7 +25,7 @@ const onSubmit = (values: any) => {
   );
   sleep(1100).then(() => {
     window.alert(JSON.stringify("Book Added ", null, 2));
-    dataStore.setView("books");
+    dataStore.setView("books", -1);
   });
 };
 

@@ -15,12 +15,21 @@ const Books = observer(() => {
   const sleep = (ms: any) => new Promise((resolve) => setTimeout(resolve, ms));
 
   useEffect(() => {
-    dataStore.fetchBookList().then(() => {
-      setData(dataStore.bookList);
-      sleep(1000).then(() => {
-        setLoading(false);
+    if (dataStore.bookID < 0) {
+      dataStore.fetchBookList().then(() => {
+        setData(dataStore.bookList);
+        sleep(500).then(() => {
+          setLoading(false);
+        });
       });
-    });
+    } else {
+      dataStore.findBookByCategory(dataStore.bookID).then(() => {
+        setData(dataStore.bookCategoryList);
+        sleep(500).then(() => {
+          setLoading(false);
+        });
+      });
+    }
   }, []);
 
   const Prev = forwardRef((props, ref: any) => (

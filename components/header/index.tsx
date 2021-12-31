@@ -1,11 +1,11 @@
-import React from "react";
+import { useRef } from "react";
 import { Box, Heading, Flex, useDisclosure, Drawer } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import SideBar from "./sidebar";
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = React.useRef(null);
+  const btnRef = useRef(null);
 
   return (
     <Flex

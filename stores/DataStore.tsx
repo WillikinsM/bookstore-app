@@ -5,9 +5,11 @@ class DataStore {
   bookList: [] = [];
   categoryList: [] = [];
   book: [] = [];
+  bookCategoryList: [] = [];
   bookIsActive: boolean = false;
   categoryIsActive: boolean = false;
   modalHandler: string = "";
+  bookID: number = -1;
 
   constructor() {
     makeAutoObservable(this);
@@ -20,7 +22,6 @@ class DataStore {
       );
       runInAction(() => {
         this.bookList = response.data;
-        this.bookIsActive = true;
       });
     } catch (err) {
       console.log(err);
@@ -86,7 +87,7 @@ class DataStore {
         `https://will-bookstore-api.herokuapp.com/books?category=${id}`
       );
       runInAction(() => {
-        this.bookList = response.data;
+        this.bookCategoryList = response.data;
       });
     } catch (err) {
       console.log(err);
@@ -106,13 +107,27 @@ class DataStore {
     }
   };
 
-  setView(type: string) {
-    if (type === "books") {
+  setBook(id: number) {
+    runInAction(() => {
       this.bookIsActive = true;
       this.categoryIsActive = false;
-    } else if (type === "categories") {
+      this.bookID = id;
+    });
+  }
+
+  setCategory() {
+    runInAction(() => {
       this.categoryIsActive = true;
       this.bookIsActive = false;
+      this.bookID = -1;
+    });
+  }
+
+  setView(type: string, id: number) {
+    if (type === "books") {
+      this.setBook(id);
+    } else if (type === "categories") {
+      this.setCategory();
     }
   }
 }
