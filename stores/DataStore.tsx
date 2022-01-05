@@ -77,10 +77,6 @@ class DataStore {
     }
   };
 
-  setModalHandler(type: string) {
-    this.modalHandler = type;
-  }
-
   findBookByCategory = async (id: number) => {
     try {
       const response = await axios.get(
@@ -106,6 +102,20 @@ class DataStore {
       console.log(err);
     }
   };
+
+  deleteBook = async (id: number) => {
+    try {
+      await axios.delete(
+        `https://will-bookstore-api.herokuapp.com/books/${id}`
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  setModalHandler(type: string) {
+    this.modalHandler = type;
+  }
 
   setBook(id: number) {
     runInAction(() => {

@@ -8,7 +8,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import dataStore from "../../stores/DataStore";
-import BookOptions from "./options";
+import BookOptions from "./bookOptions";
 
 interface Props {
   title: string;
@@ -22,7 +22,7 @@ const Book = ({ title, id }: Props) => {
     dataStore.findBookById(id);
     onOpen();
   };
-  const book: any = dataStore.book;
+
   return (
     <Box
       maxW="xs"
@@ -50,7 +50,7 @@ const Book = ({ title, id }: Props) => {
         fit="cover"
         mt={2}
         src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/ad352c45728713.583b609560cfb.jpg"
-        alt="NIKE AIR"
+        alt="BookCover"
       />
 
       <Flex
@@ -79,7 +79,7 @@ const Book = ({ title, id }: Props) => {
           onClick={handleClick}
         >
           See more
-          <Modal onClose={onClose} size={"full"} isOpen={isOpen}>
+          <Modal onClose={onClose} size={"2xl"} isOpen={isOpen}>
             <Button onClick={onClose}>Close</Button>
             <BookOptions />
           </Modal>

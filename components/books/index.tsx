@@ -18,14 +18,14 @@ const Books = observer(() => {
     if (dataStore.bookID < 0) {
       dataStore.fetchBookList().then(() => {
         setData(dataStore.bookList);
-        sleep(500).then(() => {
+        sleep(100).then(() => {
           setLoading(false);
         });
       });
     } else {
       dataStore.findBookByCategory(dataStore.bookID).then(() => {
         setData(dataStore.bookCategoryList);
-        sleep(500).then(() => {
+        sleep(100).then(() => {
           setLoading(false);
         });
       });
