@@ -5,19 +5,22 @@ import {
   ModalCloseButton,
   ModalBody,
   Text,
-  Flex,
   useColorModeValue,
   SimpleGrid,
   Box,
   chakra,
   Button,
   Image,
+  useDisclosure,
+  Modal,
 } from "@chakra-ui/react";
 import { observer } from "mobx-react-lite";
 import dataStore from "../../../stores/DataStore";
-import DeleteOption from "./options";
+import DeleteOption from "./delete";
+import UpdateBook from "./update";
 
 const BookOptions = observer(() => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const book: any = dataStore.book;
 
   return (
@@ -62,16 +65,19 @@ const BookOptions = observer(() => {
                 >
                   {book.text}
                 </chakra.p>
-
                 <Button
                   w={{ base: "full", sm: "auto" }}
                   size="lg"
                   bg={useColorModeValue("gray.900", "gray.700")}
                   _hover={{ bg: useColorModeValue("gray.700", "gray.600") }}
                   color={useColorModeValue("white", "gray.200")}
-                  as="a"
+                  onClick={onOpen}
                 >
                   Update
+                  <Modal onClose={onClose} size={"md"} isOpen={isOpen}>
+                    <Button onClick={onClose}>Close</Button>
+                    <UpdateBook />
+                  </Modal>
                 </Button>
 
                 {<DeleteOption id={book.id} />}
