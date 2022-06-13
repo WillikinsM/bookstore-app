@@ -23,6 +23,11 @@ const BookOptions = observer(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const book: any = dataStore.book;
 
+  const imgErroHandler = (e: any) => {
+    e.target.src =
+      "https://github.com/WillikinsM/bookstore-app/blob/dev/bookcovernotfound.jpg?raw=true";
+  };
+
   return (
     <>
       <ModalOverlay />
@@ -89,6 +94,7 @@ const BookOptions = observer(() => {
                 mt={2}
                 src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/ad352c45728713.583b609560cfb.jpg"
                 alt="Book cover"
+                onError={(e) => imgErroHandler(e)}
               />
               <Text mr={-328} ml={327} mt={-127}>
                 {book.authorName}
