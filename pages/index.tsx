@@ -28,6 +28,8 @@ const Home: NextPage = observer(() => {
       <Spacer mb={50} />
     </>
   );
+  
+  
 });
 
 export default Home;

@@ -2,10 +2,12 @@ import { useRef } from "react";
 import { Box, Heading, Flex, useDisclosure, Drawer } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import SideBar from "./sidebar";
+import UserMenu from "./usermenu";
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef(null);
+  const isLoggedIn = true;
 
   return (
     <Flex
@@ -35,6 +37,11 @@ const Header = () => {
           Bookstore
         </Heading>
       </Flex>
+
+      <Flex>
+        <UserMenu isLogged = {isLoggedIn}  />
+      </Flex>
+
     </Flex>
   );
 };

@@ -74,8 +74,8 @@ const Books = observer(() => {
         justifyContent="center"
         wrap="wrap"
       >
-        {posts.map((book: any, index) => (
-          <Book key={index} title={book.title} id={book.id} />
+        {posts.map((book: any, id) => (
+          <Book key={id} title={book.title} id={book.id} />
         ))}
       </Flex>
       <Pagination

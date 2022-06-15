@@ -1,5 +1,13 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import axios from "axios";
+import authHeader from "../service/authHeader";
+
+axios.defaults.headers.common["Authorization"] = authHeader();
+
+
+const API_URL = "http://localhost:8080";
+
+
 
 class DataStore {
   bookList: [] = [];
@@ -14,12 +22,13 @@ class DataStore {
   constructor() {
     makeAutoObservable(this);
   }
+  
 
   fetchBookList = async () => {
     try {
       const response = await axios.get(
-        "https://will-bookstore-api.herokuapp.com/books/"
-      );
+        `${API_URL}/books/`,);
+
       runInAction(() => {
         this.bookList = response.data;
       });
@@ -31,7 +40,7 @@ class DataStore {
   fetchCategoryList = async () => {
     try {
       const response = await axios.get(
-        "https://will-bookstore-api.herokuapp.com/category"
+        `${API_URL}/category`
       );
       runInAction(() => {
         this.categoryList = response.data;
@@ -49,8 +58,7 @@ class DataStore {
   ) => {
     try {
       const response = await axios.post(
-        `https://will-bookstore-api.herokuapp.com/books?category=${category}`,
-        {
+        `${API_URL}/books?category=${category}`,{
           authorName: authorName,
           id: 0,
           text: text,
@@ -65,7 +73,7 @@ class DataStore {
   addNewCategory = async (name: string, description: string) => {
     try {
       const response = await axios.post(
-        "https://will-bookstore-api.herokuapp.com/category",
+        `${API_URL}/category`,
         {
           description: description,
           id: 0,
@@ -80,7 +88,7 @@ class DataStore {
   findBookByCategory = async (id: number) => {
     try {
       const response = await axios.get(
-        `https://will-bookstore-api.herokuapp.com/books?category=${id}`
+        `${API_URL}/books?category=${id}`
       );
       runInAction(() => {
         this.bookCategoryList = response.data;
@@ -93,7 +101,7 @@ class DataStore {
   findBookById = async (id: number) => {
     try {
       const response = await axios.get(
-        `https://will-bookstore-api.herokuapp.com/books/${id}`
+        `${API_URL}/books/${id}`
       );
       runInAction(() => {
         this.book = response.data;
@@ -106,7 +114,7 @@ class DataStore {
   deleteBook = async (id: number) => {
     try {
       await axios.delete(
-        `https://will-bookstore-api.herokuapp.com/books/${id}`
+        `${API_URL}/books/${id}`
       );
     } catch (err) {
       console.log(err);
