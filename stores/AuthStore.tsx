@@ -1,7 +1,8 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import axios from "axios";
+import { string } from "yup";
 
-const API_URL = "http://localhost:8080/api/v1";
+const API_URL = "http://localhost:8080";
 
 class AuthStore{
   
@@ -13,7 +14,7 @@ class AuthStore{
     
     register = async (firstname:string,lastname:string,email: string, password: string) => {
         try {
-            const response = await axios.post(`${API_URL}/registration`, {
+            const response = await axios.post(`${API_URL}/api/v1/registration`, {
                 firstName: firstname,
                 lastName: lastname,
                 email: email,
@@ -30,14 +31,21 @@ class AuthStore{
         
           try {
             const response = await axios.post(`${API_URL}/login`, {
-                email: email,
+                username: email,
                 password: password,
-            });
+            },{headers: {'Content-Type': 'application/json'}});
+            
             runInAction(() => {
-                if(response.data.accessToken){
-                    localStorage.setItem("user",JSON.stringify(response.data));
+                
+                if(response.headers.authorization){
+                   var data={
+                        acessToken:response.headers.authorization,
+                        email:email
+                    };
+                   localStorage.setItem("user", JSON.stringify(data));
+                   console.log(response.status)
+                   console.log(data);
                 }
-                console.log(response.data);
             });
           } catch (err) {
             console.log(err);
@@ -47,8 +55,7 @@ class AuthStore{
     logout = async () => {
 
         try {
-            const response = await axios.post(`${API_URL}/logout`, {
-                
+            const response = await axios.post(`${API_URL}/logout`, {   
         });
         runInAction(() => {
             localStorage.removeItem("user");

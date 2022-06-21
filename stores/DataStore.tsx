@@ -2,12 +2,16 @@ import { makeAutoObservable, runInAction } from "mobx";
 import axios from "axios";
 import authHeader from "../service/authHeader";
 
-axios.defaults.headers.common["Authorization"] = authHeader();
 
 
 const API_URL = "http://localhost:8080";
 
 
+let modAxios = axios.create({
+  headers:{
+    Authorization: authHeader()
+  }
+})
 
 class DataStore {
   bookList: [] = [];
@@ -19,34 +23,42 @@ class DataStore {
   modalHandler: string = "";
   bookID: number = -1;
 
+  
+
+
   constructor() {
     makeAutoObservable(this);
   }
   
+  
 
   fetchBookList = async () => {
     try {
-      const response = await axios.get(
-        `${API_URL}/books/`,);
+      const response = await modAxios.get(
+        `${API_URL}/books/`);
 
       runInAction(() => {
         this.bookList = response.data;
-      });
+      },);
     } catch (err) {
       console.log(err);
+      
+      
     }
   };
 
   fetchCategoryList = async () => {
     try {
-      const response = await axios.get(
-        `${API_URL}/category`
+      const response = await modAxios.get(
+        `${API_URL}/category/`
       );
       runInAction(() => {
         this.categoryList = response.data;
       });
+      
     } catch (err) {
       console.log(err);
+      console.log(authHeader())
     }
   };
 
@@ -57,7 +69,7 @@ class DataStore {
     category: number
   ) => {
     try {
-      const response = await axios.post(
+      const response = await modAxios.post(
         `${API_URL}/books?category=${category}`,{
           authorName: authorName,
           id: 0,
@@ -72,7 +84,7 @@ class DataStore {
 
   addNewCategory = async (name: string, description: string) => {
     try {
-      const response = await axios.post(
+      const response = await modAxios.post(
         `${API_URL}/category`,
         {
           description: description,
@@ -87,7 +99,7 @@ class DataStore {
 
   findBookByCategory = async (id: number) => {
     try {
-      const response = await axios.get(
+      const response = await modAxios.get(
         `${API_URL}/books?category=${id}`
       );
       runInAction(() => {
@@ -100,7 +112,7 @@ class DataStore {
 
   findBookById = async (id: number) => {
     try {
-      const response = await axios.get(
+      const response = await modAxios.get(
         `${API_URL}/books/${id}`
       );
       runInAction(() => {
@@ -113,7 +125,7 @@ class DataStore {
 
   deleteBook = async (id: number) => {
     try {
-      await axios.delete(
+      await modAxios.delete(
         `${API_URL}/books/${id}`
       );
     } catch (err) {

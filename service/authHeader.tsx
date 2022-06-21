@@ -5,7 +5,12 @@ const authHeader = () => {
   if (userStr) 
     user = JSON.parse(userStr);
   
-  return user && user.accessToken ?  `Bearer ${user.accessToken}`  :  "";
+  if(user && user.acessToken)  {
+    return `${user.acessToken}`
+  }else {
+    return ''
+  }
+  
 
 }
 
