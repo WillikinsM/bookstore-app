@@ -21,7 +21,6 @@ import { Formik } from 'formik';
 
 const onSubmit = (values: any) => {
   authStore.login(values.email, values.password);
-  console.log(authStore.getCurrentUser);
 };
   
 

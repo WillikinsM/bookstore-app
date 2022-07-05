@@ -23,18 +23,15 @@ class DataStore {
   modalHandler: string = "";
   bookID: number = -1;
 
-  
-
 
   constructor() {
     makeAutoObservable(this);
   }
   
-  
 
   fetchBookList = async () => {
     try {
-      const response = await modAxios.get(
+      const response = await axios.get(
         `${API_URL}/books/`);
 
       runInAction(() => {
@@ -49,7 +46,7 @@ class DataStore {
 
   fetchCategoryList = async () => {
     try {
-      const response = await modAxios.get(
+      const response = await axios.get(
         `${API_URL}/category/`
       );
       runInAction(() => {
@@ -58,7 +55,7 @@ class DataStore {
       
     } catch (err) {
       console.log(err);
-      console.log(authHeader())
+
     }
   };
 
@@ -99,7 +96,7 @@ class DataStore {
 
   findBookByCategory = async (id: number) => {
     try {
-      const response = await modAxios.get(
+      const response = await axios.get(
         `${API_URL}/books?category=${id}`
       );
       runInAction(() => {
@@ -112,7 +109,7 @@ class DataStore {
 
   findBookById = async (id: number) => {
     try {
-      const response = await modAxios.get(
+      const response = await axios.get(
         `${API_URL}/books/${id}`
       );
       runInAction(() => {

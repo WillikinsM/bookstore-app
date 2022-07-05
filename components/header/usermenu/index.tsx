@@ -9,13 +9,19 @@ import {
   Center,
 } from '@chakra-ui/react';
 import Link from 'next/link';
+import { useEffect } from 'react';
+import authStore from '../../../stores/AuthStore';
 
 
 
 
 const UserMenu = (props : {isLogged: boolean}) => {
 
+  useEffect(() => {
+    authStore.getCurrentUser();
+  }, []);
 
+  let username = authStore.username;
 
   return props.isLogged ? (
     <>
@@ -41,7 +47,7 @@ const UserMenu = (props : {isLogged: boolean}) => {
                   </Center>
                   <br />
                   <Center>
-                    <p>Username</p>
+                    <p>{username.email}</p>
                   </Center>
                   <br />
                   <MenuDivider />
@@ -67,6 +73,9 @@ const UserMenu = (props : {isLogged: boolean}) => {
                     _focus={{
                       color: "black",
                       bg: "white"
+                    }}
+                    onClick={() => {
+                      authStore.logout();
                     }}
                   >Logout</MenuItem>
                 </MenuList>

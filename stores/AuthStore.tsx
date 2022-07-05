@@ -1,11 +1,32 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import axios from "axios";
 import { string } from "yup";
+import authHeader from "../service/authHeader";
 
 const API_URL = "http://localhost:8080";
 
-class AuthStore{
+
+let modAxios = axios.create({
+    headers:{
+      Authorization: authHeader()
+    }
+  })
   
+
+  interface CurrentUser {
+    token: string;
+    authority: string;
+    email: string;
+  }
+
+class AuthStore{
+     isLoggedIn: boolean = false;
+
+     username : CurrentUser = {
+        token: "",
+        authority: "",
+        email: "username"
+     };
 
     constructor(){
         makeAutoObservable(this);
@@ -37,44 +58,57 @@ class AuthStore{
             
             runInAction(() => {
                 
-                if(response.headers.authorization){
-                   var data={
-                        acessToken:response.headers.authorization,
-                        email:email
-                    };
-                   localStorage.setItem("user", JSON.stringify(data));
-                   console.log(response.status)
-                   console.log(data);
-                }
+            if(response.headers.authorization){
+                var data={
+                     acessToken:response.headers.authorization,
+                     email:email,
+                     authority: ""
+                };
+                localStorage.setItem("user", JSON.stringify(data));
+                this.getUserAuthorities();
+            }
             });
           } catch (err) {
             console.log(err);
           }
     }
 
-    logout = async () => {
-
-        try {
-            const response = await axios.post(`${API_URL}/logout`, {   
-        });
-        runInAction(() => {
-            localStorage.removeItem("user");
-        });
-        }catch(err){
-            console.log(err);
-        }
-      
+    logout =  () => {
+        localStorage.removeItem("user"); 
+        this.getUserStatus();
     }
 
     getCurrentUser = () => {
         const userStr = localStorage.getItem("user");
         if(userStr){
-            return JSON.parse(userStr);
+         this.username = JSON.parse(userStr);
+        
+        }
+
+    }
+
+    getUserStatus = () => {
+        const userStr = localStorage.getItem("user");
+
+        if(userStr){
+            this.isLoggedIn = true;
+        }else{
+            this.isLoggedIn = false;
         }
     }
 
+    getUserAuthorities = async () => {
+        this.getCurrentUser();
 
-
+        try {
+            const response = await modAxios.get(`${API_URL}/api/v1/registration/user/${this.username.email}`);
+            runInAction(() => {
+              this.username.authority = response.data[4].authority;
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    }
 }
 
 const authStore = new AuthStore();

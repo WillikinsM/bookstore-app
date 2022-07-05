@@ -3,12 +3,19 @@ import { Box, Heading, Flex, useDisclosure, Drawer } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import SideBar from "./sidebar";
 import UserMenu from "./usermenu";
+import authStore from "../../stores/AuthStore";
+import { useEffect } from "react";
+import { observer } from "mobx-react-lite";
 
-const Header = () => {
+const Header = observer(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef(null);
-  const isLoggedIn = true;
 
+  useEffect(() => {
+    authStore.getUserStatus();
+    authStore.isLoggedIn;
+  },[]);
+  
   return (
     <Flex
       as="nav"
@@ -39,11 +46,11 @@ const Header = () => {
       </Flex>
 
       <Flex>
-        <UserMenu isLogged = {isLoggedIn}  />
+        <UserMenu isLogged = {authStore.isLoggedIn}  />
       </Flex>
 
     </Flex>
   );
-};
+});
 
 export default Header;
