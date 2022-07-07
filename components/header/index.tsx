@@ -12,6 +12,7 @@ const Header = observer(() => {
   const btnRef = useRef(null);
 
   useEffect(() => {
+    //used to avoid localstorage error
     authStore.getUserStatus();
     authStore.isLoggedIn;
   },[]);

@@ -10,6 +10,8 @@ import {
   useColorModeValue,
   Link,
   FormHelperText,
+  Alert,
+  AlertIcon,
 } from '@chakra-ui/react';
 import { Formik } from "formik";
 import { InputControl, SubmitButton } from 'formik-chakra-ui';
@@ -17,18 +19,20 @@ import { observer } from 'mobx-react-lite';
 import * as Yup from "yup";
 import Router from 'next/router';
 import authStore from '../../stores/AuthStore';
-
+import { useEffect } from 'react';
 
 const sleep = (ms: any) => new Promise((resolve) => setTimeout(resolve, ms));
 
+const onSubmit = async (values: any) => {
+  var noRedirect = authStore.register(values.firstname, values.lastname, values.email, values.passwordConfirmation);
 
-
-const onSubmit = (values: any) => {
-  authStore.register(values.firstname, values.lastname, values.email, values.passwordConfirmation);
-  sleep(2000).then(() => {
-    Router.push('/login');
-  })
-  
+  if (await noRedirect === false) {
+      sleep(35000).then(() => {
+        Router.push('/login');
+        authStore.error = null;
+      })
+      
+    }
 }
 
 
@@ -51,15 +55,62 @@ const validationSchema = Yup.object({
 });
 
 
-const SignupCard = observer(()  => 
-{
+const SignupCard = observer(()  => {
+  useEffect(() => { 
+    authStore.getUserStatus();
+    if(authStore.isLoggedIn){
+      Router.push('/');
+    }
+  },[]);
+
+  let alert : JSX.Element;
+  let isLoading: boolean = false;
+
+  if(authStore.error === true) {
+    isLoading = false;
+    alert =  
+    <Alert status='error'>
+    <AlertIcon />
+      Email already exists!
+    </Alert>
+  }else if(authStore.error === false) {
+    isLoading = true;
+    alert =   
+    <Alert status='info'>
+    <AlertIcon />
+      Successfully registered!
+      Check your email to verify your account.
+    </Alert>
+  }else {
+    alert = <></>;
+  }
+
+
   return (
+    <>
+    <Flex
+      as="nav"
+      align="center"
+      justify="space-between"
+      padding={6}
+      bg="black"
+      color="white"
+    >
+      <Flex mr={2}>
+        <Heading as="h1" size="md" letterSpacing={"tight"}>
+          <Link href='/'>Bookstore</Link>  
+        </Heading>
+      </Flex>
+    </Flex>
+
+
+
     <Flex
       minH={'100vh'}
       align={'center'}
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}>
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={5} px={6}>
         <Stack align={'center'}>
           <Heading fontSize={'4xl'} textAlign={'center'}>
             Sign up
@@ -74,6 +125,7 @@ const SignupCard = observer(()  =>
           boxShadow={'lg'}
           p={8} 
           >
+        {alert}
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}
@@ -113,13 +165,14 @@ const SignupCard = observer(()  =>
             </FormControl>
             <Stack spacing={10} pt={2}>
               <SubmitButton
-                loadingText="Submitting"
+                isLoading={isLoading}
                 size="lg"
                 bg={'black'}
                 color={'white'}
                 _hover={{
                   bg: 'blue.500',
                 }}
+                
                 >
                 Sign up
               </SubmitButton>
@@ -136,8 +189,9 @@ const SignupCard = observer(()  =>
         </Box>
       </Stack>
     </Flex>
-   
+    </>
   );
 });
 
 export default SignupCard;
+

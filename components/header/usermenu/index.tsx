@@ -18,6 +18,7 @@ import authStore from '../../../stores/AuthStore';
 const UserMenu = (props : {isLogged: boolean}) => {
 
   useEffect(() => {
+    //used to avoid localstorage error
     authStore.getCurrentUser();
   }, []);
 

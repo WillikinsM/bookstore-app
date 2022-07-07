@@ -15,7 +15,6 @@ const authHeader = () => {
       return ''
     }
 
-
   }else{
     return ''
   }
